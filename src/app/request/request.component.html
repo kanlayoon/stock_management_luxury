@@ -1,0 +1,89 @@
+<app-header-branch></app-header-branch>
+
+<body>
+  <mat-card>
+    <h1>ขอเบิกสินค้า</h1>
+    <!-- <div class="example-header"> -->
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+    <!-- </div> -->
+    <i class="material-icons col-3">search</i>
+    <div class="example-container mat-elevation-z8">
+
+      <mat-table [dataSource]="dataSource1" matSort>
+
+       <!-- ID Column -->
+       <ng-container matColumnDef="Product_Id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> รหัสสินค้า </mat-header-cell>
+        <mat-cell *matCellDef="let product"> {{product.Product_Code}} </mat-cell>
+      </ng-container>
+
+      <!-- Progress Column -->
+      <ng-container matColumnDef="Product_Name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> ชื่อสินค้า </mat-header-cell>
+        <mat-cell *matCellDef="let product"> {{product.Product_Name}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="ProductType_Name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> ประเภทสินค้า </mat-header-cell>
+        <mat-cell *matCellDef="let product"> {{product.ProductType_Name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Product_Des">
+        <mat-header-cell *matHeaderCellDef mat-sort-header > คำอธิบาย </mat-header-cell>
+        <mat-cell *matCellDef="let product"> {{product.Product_Des}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Product_Instruction">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> วิธีใช้ </mat-header-cell>
+        <mat-cell *matCellDef="let product"> {{product.Product_Instruction}} </mat-cell>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="BranchProduct_Amount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> จำนวนสินค้าในคลัง </mat-header-cell>
+        <mat-cell *matCellDef="let product"> {{product.BranchProduct_Amount}} </mat-cell>
+      </ng-container> -->
+
+      <ng-container matColumnDef="input_num">
+        <mat-header-cell *matHeaderCellDef mat-sort-header > จำนวน </mat-header-cell>
+        <mat-cell *matCellDef="let product"> <div class="ui input" style="width:70%">
+          <input myNumberOnly name="min" type="text" placeholder="จำนวน" [(ngModel)]="product.amount" name="input_name">
+         
+        </div> </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="button">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>  </mat-header-cell>
+        <mat-cell *matCellDef="let product">  <button class="ui inverted violet  button"   (click)="openDialog(product.Product_Code,product.amount,product.Product_Name)">ขอเบิก</button> </mat-cell>
+      </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+      </mat-table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+  </mat-card>
+</body>
+<button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#myModalWarn">Open Modal</button>
+
+<div id="myModalWarn" class="modal fade">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <br>
+        <p>ส่งคำขอเรียบร้อยแล้ว
+        </p>
+      </div>
+      <br>
+      <div class="modal-footer">
+          <!-- <button mat-raised-button color="primary"  (click)="openDialog()">ยืนยัน</button> -->
+          <button mat-raised-button color="warn" class="btn btn-default" data-dismiss="modal">ปิด</button>
+      </div>
+    </div>
+    
+  </div>
+</div>

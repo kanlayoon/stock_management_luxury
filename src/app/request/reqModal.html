@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>ขอเบิกสินค้า</h1>
+<div mat-dialog-content>
+  
+  
+        คุณต้องการเบิกสินค้า{{data.name}}เป็นจำนวน {{data.amount}} ใช่หรือไม่
+  <br>
+</div>
+<div mat-dialog-actions>
+        <button mat-raised-button color="primary"  (click)="onNoClick(data.pCode,data.amount,data)">ยืนยัน</button>
+        <button mat-raised-button color="warn"  [mat-dialog-close]="data.animal" cdkFocusInitial>ยกเลิก</button><br>
+        
+  <!-- <button mat-button (click)="confirm()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+</div>

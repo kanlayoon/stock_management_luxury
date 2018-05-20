@@ -1,0 +1,171 @@
+<app-header></app-header>
+
+
+  <mat-card>
+    <h1>สินค้า</h1>
+    <a [routerLink]="'/type-product'" ><button mat-raised-button color="primary">จัดการประเภทสินค้า</button></a>
+    <a [routerLink]="'/manage-product'" ><button mat-raised-button color="primary">จัดการสินค้า</button></a> 
+    <a [routerLink]="'/manage-courseProduct'" ><button mat-raised-button color="primary">จัดการการประมาณการใช้สินค้าแต่ละคอร์ส</button></a> 
+    <a [routerLink]="'/add-product'" ><button mat-raised-button color="primary">เพิ่มสต๊อกสินค้า</button></a> 
+    
+    <br><br><br>
+   <!-- <button mat-raised-button color="primary"  (click)="openDialogAdd()">เพิ่มสินค้า</button> <br><br><br> -->
+   
+ 
+    <!-- <div class="example-header"> -->
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="ค้นหา">
+    </mat-form-field>
+    <!-- </div> -->
+    <i class="material-icons col-3">search</i>
+    <div class="example-container mat-elevation-z8">
+
+      <mat-table [dataSource]="dataSource1" matSort>
+
+        <!-- ID Column -->
+        
+        <ng-container matColumnDef="Product_Code"> 
+          <mat-header-cell style="flex: 0 0 10%;" *matHeaderCellDef mat-sort-header  > รหัสสินค้า </mat-header-cell>
+          <mat-cell style="flex: 0 0 10%;" *matCellDef="let product"> {{product.Product_Code}} </mat-cell>
+        </ng-container>
+
+     
+
+        <!-- Progress Column -->
+        <ng-container matColumnDef="Product_Name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> ชื่อสินค้า </mat-header-cell>
+          <mat-cell *matCellDef="let product"> {{product.Product_Name}} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="ProductType_Name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> ประเภทสินค้า </mat-header-cell>
+          <mat-cell *matCellDef="let product"> {{product.ProductType_Name}} </mat-cell>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="BranchProduct_EXP">
+          <mat-header-cell *matHeaderCellDef mat-sort-header   > วันหมดอายุ(วว/ดด/ปปปป) </mat-header-cell>
+          <mat-cell *matCellDef="let product"  > {{product.BranchProduct_EXP | date:'dd/MM/yyyy' }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Product_Des">
+          <mat-header-cell *matHeaderCellDef mat-sort-header > คำอธิบาย </mat-header-cell>
+          <mat-cell *matCellDef="let product"> {{product.Product_Des}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Product_Instruction">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> วิธีใช้ </mat-header-cell>
+          <mat-cell *matCellDef="let product"> {{product.Product_Instruction}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="BranchProduct_Amount" >
+          <mat-header-cell  *matHeaderCellDef mat-sort-header> จำนวน </mat-header-cell>
+          <mat-cell  *matCellDef="let product"> {{product.BranchProduct_Amount}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="sss">
+            <mat-header-cell style="flex: 0 0 15%;" *matHeaderCellDef mat-sort-header>  </mat-header-cell>
+            <mat-cell style="flex: 0 0 15%;" *matCellDef="let product">  
+              <button class="ui inverted red button"  data-toggle="modal" data-target="#myModalDEL" (click)="addIdDel(product.BranchProduct_Id)">ลบ</button> 
+              &nbsp; 
+              <button class="ui inverted orange button"  (click)="openDialog(product.Product_Code,product.Product_Name,product.BranchProduct_EXP,
+              product.Product_Des,product.Product_Instruction,product.BranchProduct_Amount,product.ProductType_Name,product.BranchProduct_Id,product)">แก้ไข</button> </mat-cell>
+          </ng-container> 
+        
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+      </mat-table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+
+ 
+  </mat-card>
+
+  <div class="container">
+    <!-- Trigger the modal with a button -->
+    <!-- Modal -->
+    <div class="modal fade in" id="myModalDEL" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                  คุณต้องการลบสินค้าออกจากคลัง 
+                  
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success"  data-dismiss="modal" (click)="delProduct()">ตกลง</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <!-- Trigger the modal with a button -->
+    <!-- Modal -->
+    <div class="modal fade" id="ModalUpdate" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    แก้ไขประเภทสินค้าเรียบร้อยแล้ว
+                </div>
+                <div class="modal-footer">
+                    <button mat-raised-button color="warn" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div *ngIf="warnAdd">
+    <div class="container">
+        <div class="modal fade in"  role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        กรุณากรอกรายละเอียดสินค้า
+                    </div>
+                    <div class="modal-footer">
+                        <button mat-raised-button color="warn" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div> -->
+  
+  <!-- <div *ngIf="warnConfirm">
+    <div class="container">
+   
+        <div class="modal fade in" id="myModalwarnConfirm" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        คุณต้องการเพิ่มสินค้า
+                    </div>
+                    <div class="modal-footer">
+                        <button mat-raised-button color="success" class="btn btn-default" data-dismiss="modal" (click)="sp_insert_Product(1)">ยืนยัน</button>
+                        <button mat-raised-button color="warn" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div> -->
+
+  
+

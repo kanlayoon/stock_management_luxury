@@ -1,0 +1,43 @@
+
+<head><link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+ <!-- style="background-color :white " -->
+<mat-toolbar class="mat-aaa" >
+  <a [routerLink]="'/dashboard-head-office'"><img src="assets/img/Logo-Luxury-04-1024x1024.png" height="80" width="100"></a>
+  <a [routerLink]="'/dashboard-head-office'"><button mat-button class="font">LUXURY</button></a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a [routerLink]="'/dashboard-head-office'"><button mat-button class="font">หน้าแรก</button></a>
+  <a [routerLink]="'/manage-employee'"><button mat-button class="font">จัดการพนักงาน</button></a>
+  <a [routerLink]="'/product'"><button mat-button class="font">สินค้า</button></a>
+  <a [routerLink]="'/supply'"><button mat-button class="font">การสั่งจ่ายสินค้า</button></a>
+  <a [routerLink]="'/requisition'"><button mat-button class="font">คำขอเบิกสินค้า</button></a>
+  <!-- <a [routerLink]="'/using-product'"><button mat-button >ข้อมูลการใช้สินค้าสาขาย่อย</button></a> -->
+  <a [routerLink]="'/notification'"><button mat-button class="font">ตั้งค่าการแจ้งเตือน</button></a>
+  <a [routerLink]="'/report'"><button mat-button class="font">ออกรายงาน</button></a>
+  
+  <span class="example-spacer"></span>
+  
+
+  <i class="material-icons mat-icon">notifications</i>
+  <div *ngIf = "notifications">
+    <mat-chip-list>
+        <mat-chip  color="warn" selected="true"  (click)="openDialog()"  aria-hidden="true"> {{Number_count}} </mat-chip>
+  </mat-chip-list>
+</div> &nbsp;&nbsp;&nbsp;
+
+  <mat-icon [matMenuTriggerFor]="menu" role="img" aria-hidden="true">account_circle</mat-icon>
+  <!-- <i class="material-icons mat-icon">account_circle</i> -->
+  &nbsp;
+  <p [matMenuTriggerFor]="menu" class="font" >{{username}}</p>
+  <mat-menu #menu="matMenu">
+    
+    <button mat-menu-item (click)="clearLocal()">Logout</button>
+  </mat-menu>
+  
+
+
+</mat-toolbar>
+<!-- 
+<div class="imageDiv"></div>
+<div class="imageDiv bottomDiv"></div> -->

@@ -1,0 +1,43 @@
+<h1 mat-dialog-title>เปลี่ยนข้อมูลผู้ใช้งาน</h1>
+<div mat-dialog-content>
+    <p>เปลี่ยนข้อมูลผู้ใช้งาน {{data.branch}}</p>
+    ชื่อ :  <mat-form-field>
+       <input matInput [(ngModel)]="data.firstName">
+    </mat-form-field>
+    <br> นามสกุล :
+    <mat-form-field>
+        <input matInput [(ngModel)]="data.lastName">
+    </mat-form-field>
+    <br>
+    เพศ :
+    <!-- <mat-form-field>
+       <input matInput [(ngModel)]="data.gender">
+    </mat-form-field> -->
+
+    <mat-radio-group class="example-radio-group" [(ngModel)]="favoriteSeason">
+        <mat-radio-button class="example-radio-button" *ngFor="let season of seasons" [value]="season">
+          {{season}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <!-- <div class="example-selected-value">Your favorite season is: {{favoriteSeason}}</div> -->
+      
+    <br>
+    ที่อยู่ : <mat-form-field>
+    <input matInput [(ngModel)]="data.add">
+    </mat-form-field>
+    <br>
+     E=mail :<mat-form-field>
+    <input matInput [(ngModel)]="data.email">
+    </mat-form-field>
+    <p style="color:red">*เปลี่ยนชื่อผู้ใช้และรหัสผ่าน</p>
+      ชื่อผู้ใช้ : <mat-form-field>
+         <input matInput [(ngModel)]="data.user">
+        </mat-form-field><br>
+         รหัสผ่าน : <mat-form-field>
+              <input matInput [(ngModel)]="data.pass">
+            </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button color="primary" (click)="editManger(data)">ตกลง</button>
+    <button mat-button color="warn" [mat-dialog-close]="data.animal" cdkFocusInitial>ยกเลิก</button>
+</div>

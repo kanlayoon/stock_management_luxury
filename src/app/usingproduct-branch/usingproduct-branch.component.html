@@ -1,0 +1,180 @@
+<app-header-branch></app-header-branch>
+
+<body>
+    <mat-card>
+        <h1>ข้อมูลการใช้สินค้า</h1>
+        
+           
+                <mat-card>
+                        <mat-form-field class="example-full-width">
+                                <input matInput [matDatepicker]="picker" placeholder="Choose a date"  [(ngModel)]="date">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker touchUi="true" #picker></mat-datepicker>
+                              </mat-form-field>
+
+                    <mat-form-field class="selectCP">
+                        <mat-select placeholder="คอร์ส" [(ngModel)]="courseSelected" name="course">
+                            <mat-option  *ngFor="let Course of course" [value]="Course"  >
+                                {{ Course.Course_Name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                   
+              
+                  <!-- <div *ngIf="showTable"> -->
+                    <div class="example-header">
+                        <mat-form-field>
+                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="example-container mat-elevation-z8">
+
+                        <mat-table [dataSource]="dataSource1" matSort>
+
+                            <ng-container matColumnDef="Product_Code">
+                               
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> รหัสสินค้า </mat-header-cell>
+                                <mat-cell *matCellDef="let product; let in=index" name="code" [attr.id]="'code' + i" > {{product.Product_Code}} </mat-cell>
+                              </ng-container>
+                      
+                              <!-- Name Column -->
+                              <ng-container matColumnDef="Product_Name">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> ชื่อสินค้า </mat-header-cell>
+                                <mat-cell *matCellDef="let product; let in=index" name="'name' + i "  > {{product.Product_Name}} </mat-cell>
+                              </ng-container>
+
+                                  <!-- Name Column -->
+                                  <ng-container matColumnDef="Product_Type">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> ชื่อสินค้า </mat-header-cell>
+                                    <mat-cell *matCellDef="let product; let in=index" name="'type' + i "  > {{product.ProductType_Name}} </mat-cell>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="BranchProduct_EXP">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header > วันหมดอายุ </mat-header-cell>
+                                    <mat-cell *matCellDef="let product ; let in=index" name="'exp' + i " > {{product.BranchProduct_EXP | date:'dd/MM/yyyy' }} </mat-cell>
+                                  </ng-container>
+                                  <ng-container matColumnDef="Product_Des">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header > คำอธิบาย </mat-header-cell>
+                                    <mat-cell *matCellDef="let product; let in=index" name="'des' + i "> {{product.Product_Des}} </mat-cell>
+                                  </ng-container>
+                                  <ng-container matColumnDef="Product_Instruction">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> วิธีใช้ </mat-header-cell>
+                                    <mat-cell *matCellDef="let product ;let in=index" name="'ins' + i "> {{product.Product_Instruction}} </mat-cell>
+                                  </ng-container>
+                                  <ng-container matColumnDef="BranchProduct_Amount" >
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> จำนวน </mat-header-cell>
+                                    <mat-cell *matCellDef="let product;let in=index" name="'amount' + i " style="width: 50px"> {{product.BranchProduct_Amount}} </mat-cell>
+                                  </ng-container>
+    
+
+                              <ng-container matColumnDef="amount">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header > จำนวน </mat-header-cell>
+                                <mat-cell *matCellDef="let product; let i = index">
+                                  <div class="ui input" style="width:70%">
+                                    <input type="text" placeholder="จำนวน"  myNumberOnly name="min" name="input_name" [attr.id]="'inputAmount' + i">
+                                  </div>
+                                </mat-cell>
+                              </ng-container>
+
+                              <!-- <ng-container matColumnDef="button">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>  </mat-header-cell>
+                                <mat-cell *matCellDef="let courseproduct">   </mat-cell>
+                              </ng-container> -->
+
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;">
+                            </mat-row>
+                        </mat-table>
+
+                        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                    </div>
+                <!-- </div> -->
+                <br>
+                <button class="ui inverted violet  button"  (click)="useProduct()">ใช้สินค้า</button>
+                </mat-card>
+          
+         
+        
+    </mat-card>
+    <button id="openModalButton3" [hidden]="true" data-toggle="modal" data-target="#myModalWarn3">Open Modal</button>
+
+    <div id="myModalWarn3" class="modal fade">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-body">
+              <br>
+              <p>สินค้าไม่เพียงพอ กรุณากรอกใหม่อีกครั้ง</p>
+            </div>
+            <div class="modal-footer">
+              <button mat-raised-button color="warn" data-dismiss="modal">ปิด</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="openModalButtonInput" [hidden]="true" data-toggle="modal" data-target="#myModalWarnInput">Open Modal</button>
+
+      <div id="myModalWarnInput" class="modal fade">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-body">
+                <br>
+                <p>กรุณากรอกจำนวนสินค้า</p>
+              </div>
+              <div class="modal-footer">
+                <button mat-raised-button color="warn" data-dismiss="modal">ปิด</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <button id="openModalButton2" [hidden]="true" data-toggle="modal" data-target="#myModalWarn2">Open Modal</button>
+
+    <div id="myModalWarn2" class="modal fade">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-body">
+              <br>
+              <p>กรุณาเลือกคอร์ส</p>
+            </div>
+            <div class="modal-footer">
+                <button mat-raised-button color="warn" data-dismiss="modal">ปิด</button>
+              </div>
+              
+          </div>
+        </div>
+      </div>
+
+      <button id="openModalButton1" [hidden]="true" data-toggle="modal" data-target="#myModalWarn1">Open Modal</button>
+
+    <div id="myModalWarn1" class="modal fade">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-body">
+              <br>
+              <p>บันทึกการใช้สินค้าเรียบร้อย</p>
+            </div>
+            <div class="modal-footer">
+              <button mat-raised-button color="warn" data-dismiss="modal">ปิด</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="openModalButtonDate" [hidden]="true" data-toggle="modal" data-target="#myModalWarnDate">Open Modal</button>
+
+      <div id="myModalWarnDate" class="modal fade">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-body">
+                <br>
+                <p>กรุณากรอกวันที่ใช้สินค้า</p>
+              </div>
+              <div class="modal-footer">
+                <button mat-raised-button color="warn" data-dismiss="modal">ปิด</button>
+              </div>
+            </div>
+          </div>
+        </div>
+</body>

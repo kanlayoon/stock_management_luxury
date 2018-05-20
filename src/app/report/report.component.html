@@ -1,0 +1,342 @@
+
+<app-header></app-header>
+
+<body>
+    <mat-card>
+    <h1>ออกรายงาน</h1>
+    <mat-form-field>
+        <mat-select placeholder="รายงานการสั่งจ่าย" [(ngModel)]="X">
+          <mat-option *ngFor="let report of reports"  [value]="report.value">
+            {{ report.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+    ตั้งแต่วันที่ :&nbsp; <mat-form-field>
+        <input matInput [matDatepicker]="picker1" placeholder="ดด/วว/ปปปป" [(ngModel)]="dateStart">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+      &nbsp;
+      ถึงวันที่ :&nbsp; 
+      <mat-form-field>
+          <input matInput [matDatepicker]="picker2" placeholder="ดด/วว/ปปปป" [(ngModel)]="dateEnd">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+        &nbsp; 
+        <button class="ui inverted blue button"><i class="material-icons " (click)="report()">search</i></button>
+        
+        <br>
+        <div *ngIf="report_supply">
+          <div class="container">
+          
+              <div class="example-header">
+                <mat-form-field>
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+              </div>
+              
+              <div class="example-container mat-elevation-z8">
+              <!-- <div id="report">
+                 <h1> รายงานการสั่งจ่าย</h1> -->
+                <mat-table id="report" [dataSource]="dataSource" matSort>
+               
+                  <!-- ID Column -->
+                  <ng-container matColumnDef="supplyDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> วันที่สั่งจ่าย </mat-header-cell>
+                    <mat-cell *matCellDef="let supply"> {{supply.SupplyDate|  date:'dd/MM/yyyy' }} </mat-cell>
+                  </ng-container>
+              
+                  <!-- Progress Column -->
+                  <ng-container matColumnDef="branchName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> สาขา </mat-header-cell>
+                    <mat-cell *matCellDef="let supply"> {{supply.Branch_Name}} </mat-cell>
+                  </ng-container>
+              
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="productName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> ชื่อสินค้า </mat-header-cell>
+                    <mat-cell *matCellDef="let supply"> {{supply.Product_Name}} </mat-cell>
+                  </ng-container>
+              
+                  <!-- Color Column -->
+                  <ng-container matColumnDef="supplyQuantity">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> จำนวนสินค้าที่สั่งจ่าย </mat-header-cell>
+                    <mat-cell *matCellDef="let supply"> {{supply.SupplyQuantity}} </mat-cell>
+                  </ng-container>
+              
+                  <mat-header-row *matHeaderRowDef="displayedColumns_supply"></mat-header-row>
+                  <mat-row *matRowDef="let supply; columns: displayedColumns_supply;">
+                  </mat-row>
+                </mat-table>
+              <!-- </div>
+               -->
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+              </div>
+              
+          </div>
+          </div>
+          <div *ngIf="warning_supply">
+
+            <mat-card>
+              ไม่พบข้อมูล
+            </mat-card>
+            </div>
+
+          <div *ngIf="report_req">
+            <div class="container">
+              
+                <div class="example-header">
+                  <mat-form-field>
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                  </mat-form-field>
+                </div>
+                
+                <div class="example-container mat-elevation-z8">
+                    <!-- <div class="test" id="report">
+                       <h1>รายงานการขอเบิกสินค้า</h1> -->
+                  <mat-table id="report"  [dataSource]="dataSource" matSort>
+                    
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="reqDate">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> วันที่เบิก </mat-header-cell>
+                      <mat-cell *matCellDef="let req"> {{req.ReqDate|  date:'dd/MM/yyyy' }} </mat-cell>
+                    </ng-container>
+                
+                    <!-- Progress Column -->
+                    <ng-container matColumnDef="branchName">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> สาขา </mat-header-cell>
+                      <mat-cell *matCellDef="let req"> {{req.Branch_Name}} </mat-cell>
+                    </ng-container>
+                
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="productName">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> ชื่อสินค้า </mat-header-cell>
+                      <mat-cell *matCellDef="let req"> {{req.Product_Name}} </mat-cell>
+                    </ng-container>
+                
+                    <!-- Color Column -->
+                    <ng-container matColumnDef="reqQuantity">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> จำนวนสินค้าที่ขอเบิก </mat-header-cell>
+                      <mat-cell *matCellDef="let req"> {{req.ReqQuantity}} </mat-cell>
+                    </ng-container>
+                    <!-- <ng-container matColumnDef="wrong">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>ข้อผิดพลาดโดยประมาณ </mat-header-cell>
+                        <mat-cell *matCellDef="let req"> {{req.ReqQuantity}} </mat-cell>
+                      </ng-container> -->
+                
+                    <mat-header-row *matHeaderRowDef="displayedColumns_req"></mat-header-row>
+                    <mat-row *matRowDef="let req; columns: displayedColumns_req;">
+                    </mat-row>
+                  </mat-table>
+                  <!-- </div> -->
+                
+                  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                </div>
+                
+            </div>
+            </div>
+            <div *ngIf="warning_req">
+
+                <mat-card>
+                  ไม่พบข้อมูล
+                </mat-card>
+                </div>
+            <div *ngIf="report_reservation">
+              <div class="container">
+                
+                  <div class="example-header">
+                    <mat-form-field>
+                      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                    </mat-form-field>
+                  </div>
+                  
+                  <div class="example-container mat-elevation-z8"  id="basic-table" >
+                      <!-- <div class="test" id="report">
+                           <h1>รายงานการจองคอร์ส</h1>  -->
+                    <mat-table id="report"  [dataSource]="dataSource" matSort>
+                       
+                      <!-- ID Column -->
+                      <ng-container matColumnDef="reservationDate">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> วันที่จอง </mat-header-cell>
+                        <mat-cell *matCellDef="let reservation"> {{reservation.ReservationCourse_Date|  date:'dd/MM/yyyy' }} </mat-cell>
+                      </ng-container>
+                  
+                      <!-- Progress Column -->
+                      <ng-container matColumnDef="branchName">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> สาขา </mat-header-cell>
+                        <mat-cell *matCellDef="let reservation"> {{reservation.Branch_Name}} </mat-cell>
+                      </ng-container>
+                  
+                      <!-- Name Column -->
+                      <ng-container matColumnDef="courseName">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> คอร์ส </mat-header-cell>
+                        <mat-cell *matCellDef="let reservation"> {{reservation.Course_Name}} </mat-cell>
+                      </ng-container>
+                  
+                      <!-- Color Column -->
+                      <!-- <ng-container matColumnDef="supplyQuantity">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> จำนวนสินค้าที่สั่งจ่าย </mat-header-cell>
+                        <mat-cell *matCellDef="let reservation"> {{reservation.ReqQuantity}} </mat-cell>
+                      </ng-container> -->
+                  
+                      <mat-header-row *matHeaderRowDef="displayedColumns_reservation"></mat-header-row>
+                      <mat-row *matRowDef="let reservation; columns: displayedColumns_reservation;">
+                      </mat-row>
+                    </mat-table> 
+                  <!-- </div> -->
+                  
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                  </div>
+                  
+              </div>
+              </div>
+              <div *ngIf="warning_use">
+
+                  <mat-card>
+                    ไม่พบข้อมูล
+                  </mat-card>
+                  </div>
+
+                  <div *ngIf="report_use">
+                    <div class="container">
+                       
+                        <div class="example-header">
+                          <mat-form-field>
+                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                          </mat-form-field>
+                        </div>
+                        
+                        <div class="example-container mat-elevation-z8">
+                            <!-- <div id="report">
+                               <h1>รายงานการใช้สินค้า</h1>  -->
+                          <mat-table id="report" [dataSource]="dataSource" matSort>
+                          
+                            <!-- ID Column -->
+                            <ng-container matColumnDef="UseDate">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header> วันที่ใช้สินค้า </mat-header-cell>
+                              <mat-cell *matCellDef="let use"> {{use.UseDate|  date:'dd/MM/yyyy' }} </mat-cell>
+                            </ng-container>
+                        
+                            <!-- Progress Column -->
+                            <ng-container matColumnDef="Branch_Name">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header> สาขา </mat-header-cell>
+                              <mat-cell *matCellDef="let use"> {{use.Branch_Name}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="Course_Name">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header> คอร์ส </mat-header-cell>
+                              <mat-cell *matCellDef="let use"> {{use.Course_Name}} </mat-cell>
+                            </ng-container>
+                        
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="Product_Name">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header> สินค้า </mat-header-cell>
+                              <mat-cell *matCellDef="let use"> {{use.Product_Name}} </mat-cell>
+                            </ng-container>
+                        
+                            <!-- Color Column -->
+                            <ng-container matColumnDef="UseQuantity">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header> จำนวนสินค้าทีใช้ไป </mat-header-cell>
+                              <mat-cell *matCellDef="let use"> {{use.UseQuantity}} </mat-cell>
+                            </ng-container>
+                        
+                            <mat-header-row *matHeaderRowDef="displayedColumns_use"></mat-header-row>
+                            <mat-row *matRowDef="let use; columns: displayedColumns_use;">
+                            </mat-row>
+                          </mat-table>
+                        <!-- </div> -->
+                        
+                          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                        </div>
+                        
+                    </div>
+                    </div>
+                    <div *ngIf="warning_use">
+      
+                        <mat-card>
+                          ไม่พบข้อมูล
+                        </mat-card>
+                        </div>
+
+                        <div *ngIf="report_reservationStat">
+                          <div class="container">
+                            
+                              <div class="example-header">
+                                <mat-form-field>
+                                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                                </mat-form-field>
+                              </div>
+                              
+                              <div class="example-container mat-elevation-z8">
+                                  <!-- <div class="test" id="report">
+                                     <h1>รายงานการขอเบิกสินค้า</h1> -->
+                                <mat-table id="report"  [dataSource]="dataSource" matSort>
+                                  
+                                  <!-- ID Column -->
+                                  <ng-container matColumnDef="Course_name">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> ชื่อคอร์ส </mat-header-cell>
+                                    <mat-cell *matCellDef="let reservationStat"> {{reservationStat.Course_Name }} </mat-cell>
+                                  </ng-container>
+                              
+                                  <!-- Progress Column -->
+                                  <ng-container matColumnDef="number">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> จำนวนคอร์ส </mat-header-cell>
+                                    <mat-cell *matCellDef="let reservationStat"> {{reservationStat.numberOfCourse}} </mat-cell>
+                                  </ng-container>
+                              
+                              
+                                  <mat-header-row *matHeaderRowDef="displayedColumns_reservationStat"></mat-header-row>
+                                  <mat-row *matRowDef="let reservationStat; columns: displayedColumns_reservationStat;">
+                                  </mat-row>
+                                </mat-table>
+                                <!-- </div> -->
+                              
+                                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                              </div>
+                              
+                          </div>
+                          </div>
+                          <div *ngIf="warning_reservationStat">
+              
+                              <mat-card>
+                                ไม่พบข้อมูล
+                              </mat-card>
+                              </div>
+        <!-- </div> -->
+
+        <!-- <div *ngIf="X==='2'">
+          <div class="container">
+              use
+          </div>
+        </div>
+
+        <div *ngIf="X==='3'">
+          <div class="container">
+              req
+          </div>
+        </div>
+
+        <div *ngIf="X==='4'">
+          <div class="container">
+              reservation
+          </div>
+        </div> -->
+
+        
+       <br>
+          <!-- <button class="ui inverted blue button" (click)="pdftest()">Export test pdftest</button>
+          <button  mat-raised-button color="primary"(click)="convert()">Export test convert</button>   -->
+          <button mat-raised-button color="primary" (click)="exportExcel()">Export to Excel</button>
+          <button mat-raised-button color="primary" (click)="testconvas()">Export to pdf</button> 
+          <!-- <button mat-raised-button color="primary"(click)="test()">test</button>  
+          <button mat-raised-button color="primary" (click)="printPDF()">pdfmaker</button>
+          <button mat-raised-button color="primary" (click)="testconvas()">testconvas</button> -->
+      
+         
+
+
+    </mat-card>
+    
+</body>

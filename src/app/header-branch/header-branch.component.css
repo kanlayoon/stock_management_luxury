@@ -1,0 +1,52 @@
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+.header-card {
+  width: 30px;
+}
+.mat-button {
+  background-color: rgba(0, 128, 0, 0);
+  color: rgb(255, 251, 251);
+}
+.mat-aaa{
+  background:#26A69A;
+}
+.mat-icon{
+  color: #fff;
+} 
+.font{
+  /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif */
+  font-family: 'Mitr', sans-serif;
+  font-size: 90%;
+  color: #fff
+}
+.imageDiv
+    {
+        margin-left: 100px;
+        background: #fff;
+        display: block;
+        width: 345px;
+        height: 220px;
+        padding: 10px;
+        border-radius: 2px 2px 2px 2px;
+        -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+        -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    }
+    .bottomDiv{
+      position:relative;
+      /* bottom:150px; */
+      left:150px;
+   }
+   .mat-chip-list{
+    position:relative;
+   }
+
+.mat-dialog-container {
+  background: #f7f5f5;
+  color: rgba(0,0,0,.87);
+}

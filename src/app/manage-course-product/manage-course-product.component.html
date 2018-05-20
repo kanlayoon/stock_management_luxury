@@ -1,0 +1,83 @@
+<app-header></app-header>
+<mat-card>
+    <h1>แก้ไขจำนวนการประมาณการใช้สินค้าในแต่ละคอร์ส</h1> 
+    <div class="example-header">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+      
+      <div class="example-container mat-elevation-z8">
+      
+        <mat-table [dataSource]="dataSource1" matSort>
+      
+          <!-- ID Column -->
+          <ng-container matColumnDef="CID">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> รหัสคอร์ส </mat-header-cell>
+            <mat-cell *matCellDef="let allCP"> {{allCP.Course_Id}} </mat-cell>
+          </ng-container>
+      
+          <!-- Progress Column -->
+          <ng-container matColumnDef="Course_Name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ชื่อคอร์ส </mat-header-cell>
+            <mat-cell *matCellDef="let allCP"> {{allCP.Course_Name}} </mat-cell>
+          </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="Product_Name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ชื่อสินค้า </mat-header-cell>
+            <mat-cell *matCellDef="let allCP"> {{allCP.Product_Name}} </mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="Amount">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> จำนวนที่ประมาณ(เดิม) </mat-header-cell>
+              <mat-cell *matCellDef="let allCP"> {{allCP.Amount}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="input_num">
+                <mat-header-cell *matHeaderCellDef mat-sort-header > จำนวนที่ประมาณ(ใหม่) </mat-header-cell>
+                <mat-cell *matCellDef="let allCP"> <div class="ui input" style="width:70%">
+                  <input type="text" placeholder="จำนวน" myNumberOnly name="min" [(ngModel)]="allCP.amount" name="input_name">
+                   
+                </div> </mat-cell> 
+              </ng-container>
+      
+              <ng-container matColumnDef="button">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>  </mat-header-cell>
+                <mat-cell *matCellDef="let allCP">  <button class="ui inverted violet  button"  (click)="updateAmountCP(allCP.CourseProduct_Id,allCP.amount)">บันทึก</button> </mat-cell>
+              </ng-container>
+      
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let allCP; columns: displayedColumns;">
+          </mat-row> 
+        </mat-table>
+       
+  
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+      
+      
+      <!-- Copyright 2018 Google Inc. All Rights Reserved.
+          Use of this source code is governed by an MIT-style license that
+          can be found in the LICENSE file at http://angular.io/license -->
+
+
+</mat-card>
+<button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#myModalWarn">Open Modal</button>
+
+<div id="myModalWarn" class="modal fade">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <br>
+        <p>บันทึกการเปลี่ยนแปลงเรียบร้อย</p>
+      </div>
+      <br>
+      <div class="modal-footer">
+          <button mat-raised-button color="warn" class="btn btn-default" data-dismiss="modal">ปิด</button>
+      </div>
+    </div>
+    
+  </div>
+</div>

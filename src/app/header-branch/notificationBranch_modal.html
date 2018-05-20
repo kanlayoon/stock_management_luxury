@@ -1,0 +1,146 @@
+<h1 mat-dialog-title>Notifications !!!</h1>
+<div mat-dialog-content>  
+  
+    <div  *ngFor="let noti of data.push_noti; let i = index" >
+        <div *ngIf = " data.push_status[i] ===7">
+            <mat-card style="background-color :#A7D8D8" >
+                   <div class="ui middle aligned divided list">
+                           <div class="item">
+                             
+                             <!-- <img class="ui avatar image" src="../assets/img/yellow.png"> -->
+                             <div class="content">
+                                   <div class="header">มีการจองคอร์ส</div>
+                                   ชื่อคอร์ส : {{noti.Course_Name}}<br>
+                                   วันที่จอง : {{noti.ReservationCourse_Date |date:'dd/MM/yyyy'}}<br>
+                                  
+                                 </div>
+                           </div>
+                           
+                           
+                           
+                         </div>
+                          </mat-card>
+                
+           </div>
+            
+        <div *ngIf = " data.push_status[i] ===1">
+         <mat-card>
+                <div class="ui middle aligned divided list">
+                        <div class="item">
+                          
+                          <img class="ui avatar image" src="../assets/img/yellow.png">
+                          <div class="content">
+                                <div class="header">สินค้าใกล้หมด เตือนระดับที่ 1</div>
+                                รหัสสินค้า : {{noti.Product_Code}}<br>
+                                ชื่อสินค้า : {{noti.Product_Name}}<br>
+                                จำนวนสินค้าคงเหลือ : {{noti.BranchProduct_Amount}}
+                              </div>
+                        </div>
+                        
+                        
+                         
+                      </div>
+                       </mat-card>
+            
+        </div>
+        <div *ngIf = " data.push_status[i] ===2">
+         <mat-card>
+                <div class="ui middle aligned divided list">
+                        <div class="item">
+                          
+                          <img class="ui avatar image" src="../assets/img/orange.png">
+                          <div class="content">
+                                <div class="header">สินค้าใกล้หมด เตือนระดับที่ 2</div>
+                                รหัสสินค้า : {{noti.Product_Code}}<br>
+                                ชื่อสินค้า : {{noti.Product_Name}}<br>
+                                จำนวนสินค้าคงเหลือ : {{noti.BranchProduct_Amount}}
+                              </div>
+                        </div>
+                        
+                        
+                        
+                      </div>
+               </mat-card>
+            </div>
+            <div *ngIf = " data.push_status[i] ===3">
+                <mat-card>
+                    <div class="ui middle aligned divided list">
+                            <div class="item">
+                              
+                              <img class="ui avatar image" src="../assets/img/red.png">
+                              <div class="content">
+                                    <div class="header">สินค้าใกล้หมด เตือนระดับที่ 3</div>
+                                    รหัสสินค้า : {{noti.Product_Code}}<br>
+                                    ชื่อสินค้า : {{noti.Product_Name}}<br>
+                                    จำนวนสินค้าคงเหลือ : {{noti.BranchProduct_Amount}}
+                                  </div>
+                            </div>
+                            
+                            
+                            
+                          </div>
+                   </mat-card>
+                   <br>
+                   
+                </div>
+                <div *ngIf = " data.push_status[i] ===4">
+                    <mat-card>
+                        <div class="ui middle aligned divided list">
+                                <div class="item">
+                                  
+                                  <img class="ui avatar image" src="../assets/img/yellow.png">
+                                  <div class="content">
+                                        <div class="header">สินค้าใกล้หมดอายุ เตือนระดับที่ 1</div>
+                                        รหัสสินค้า : {{noti.Product_Code}}<br>
+                                        ชื่อสินค้า : {{noti.Product_Name}}<br>
+                                        วันหมดอายุ : {{noti.BranchProduct_EXP |  date:'dd/MM/yyyy'}}
+                                      </div>
+                                </div>
+                                
+                                
+                                
+                              </div>
+                       </mat-card>
+                       <br>
+                    </div>
+                    <div *ngIf = " data.push_status[i] ===5">
+                     <mat-card>
+                            <div class="ui middle aligned divided list">
+                                    <div class="item">
+                                      
+                                      <img class="ui avatar image" src="../assets/img/orange.png">
+                                      <div class="content">
+                                            <div class="header">สินค้าใกล้หมดอายุ เตือนระดับที่ 2</div>
+                                            รหัสสินค้า : {{noti.Product_Code}}<br>
+                                            ชื่อสินค้า : {{noti.Product_Name}}<br>
+                                            วันหมดอายุ : {{noti.BranchProduct_EXP |  date:'dd/MM/yyyy'}}
+                                          </div>
+                                    </div>
+                                    
+                                    
+                                  </div>
+                                     </mat-card>
+                        </div>
+                        <div *ngIf = " data.push_status[i] ===6">
+                         <mat-card>
+                                <div class="ui middle aligned divided list">
+                                        <div class="item">
+                                          
+                                          <img class="ui avatar image" src="../assets/img/red.png">
+                                          <div class="content">
+                                                <div class="header">สินค้าใกล้หมดอายุ เตือนระดับที่ 3</div>
+                                                รหัสสินค้า : {{noti.Product_Code}}<br>
+                                                ชื่อสินค้า : {{noti.Product_Name}}<br>
+                                                วันหมดอายุ : {{noti.BranchProduct_EXP |  date:'dd/MM/yyyy'}}
+                                              </div>
+                                        </div>
+                                        
+                                        
+                                        
+                                      </div>
+                                       </mat-card>
+                            </div>
+                            <br>
+                        </div>
+ 
+</div>

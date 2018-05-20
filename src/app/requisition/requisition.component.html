@@ -1,0 +1,253 @@
+
+<app-header></app-header>
+
+<body>
+  <mat-card>
+    <h1>คำขอเบิกสินค้า</h1>
+    <!-- <mat-form-field>
+      <mat-select placeholder=" สาขา" [(ngModel)]="selectbranch" name="selectbranch"> 
+        <mat-option *ngFor="let branch of branchs" [value]="branch">
+          {{ branch.Branch_Name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
+
+    <!-- &nbsp;&nbsp;&nbsp;&nbsp; -->
+    <!-- <div class="example-header"> -->
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="ค้นหา">
+    </mat-form-field>
+    <!-- </div> -->
+    <i class="material-icons col-3">search</i>
+    <div class="example-container mat-elevation-z8">
+
+      <mat-table [dataSource]="dataSource1" matSort>
+
+        <ng-container matColumnDef="ProductReq_Date">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> วันที่ขอเบิก </mat-header-cell>
+          <mat-cell *matCellDef="let Reqproducts"> {{Reqproducts.ReqDate | date:'dd/MM/yyyy' }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="branch">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> สาขา </mat-header-cell>
+          <mat-cell *matCellDef="let Reqproducts"> {{Reqproducts.Branch_Name}} </mat-cell>
+        </ng-container>
+        <!-- ID Column -->
+        <ng-container matColumnDef="Product_Code">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> รหัสสินค้า </mat-header-cell>
+          <mat-cell *matCellDef="let Reqproducts"> {{Reqproducts.Product_Code}} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Product_Name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> ชื่อสินค้า </mat-header-cell>
+          <mat-cell *matCellDef="let Reqproducts"> {{Reqproducts.Product_Name}} </mat-cell>
+        </ng-container>
+        <!-- Progress Column -->
+        <ng-container matColumnDef="QuantityUpdate" >
+          <mat-header-cell *matHeaderCellDef mat-sort-header> จำนวนสินค้าที่ขอเบิก </mat-header-cell>
+          <mat-cell *matCellDef="let Reqproducts" > {{Reqproducts.QuantityUpdate}} </mat-cell>
+        </ng-container>
+
+       
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="check">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> การตรวจสอบ </mat-header-cell>
+          <mat-cell *matCellDef="let Reqproducts">
+            <button class="ui inverted blue  button" data-toggle="modal" data-target="#myModal" (click)="check(Reqproducts.Product_Code,Reqproducts.Product_Name )">ตรวจสอบ</button>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+          <mat-header-cell *matHeaderCellDef mat-sort-header > จำนวน </mat-header-cell>
+          <mat-cell *matCellDef="let Reqproducts">
+            <div class="ui input" style="width:70%">
+              <input type="text" placeholder="จำนวน" myNumberOnly name="min" [(ngModel)]="Reqproducts.amount" name="input_name">
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="note">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> หมายเหตุ </mat-header-cell>
+          <mat-cell *matCellDef="let Reqproducts">
+            <div class="ui input" style="width:70%">
+              <input type="text" placeholder="หมายเหตุ"  [(ngModel)]="Reqproducts.note" name="input_note">
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="button">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> </mat-header-cell>
+          <mat-cell *matCellDef="let Reqproducts">
+            <button class="ui inverted violet  button" (click)="supplyReq(Reqproducts.Product_Code ,Reqproducts.amount,Reqproducts.Branch_Id,Reqproducts.QuantityUpdate,Reqproducts.ReqProduct_Id,Reqproducts.note )">สั่งจ่าย</button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+      </mat-table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+
+
+   
+
+  </mat-card>
+
+  <div *ngIf="warnningPLess">
+    <div id="my-modal" class="modal fade">
+    </div>
+    </div>
+  
+    <div id="my-modal" class="modal fade">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Title</h4>
+              </div>
+              <div class="modal-body">
+                  Hello World!
+              </div>
+          </div>
+      </div> 
+    </div>
+
+ 
+  <div class="container">
+    <!-- Trigger the modal with a button -->
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">ตรวจสอบสินค้า</h4>
+          </div>
+          <div class="modal-body " >
+            <p>รหัสสินค้า {{pCode}}</p>
+            <p>ชื่อสินค้า {{pName}}</p>
+            <p  *ngFor="let data of reqAmount"> จำนวนสินค้าในคลัง {{data.BranchProduct_Amount}}</p>
+            <table class="ui celled table">
+              <thead>
+                <tr>
+                  <th>สาขา</th>
+                  <th>จำนวน</th>
+                  <th>วัน (วว/ดด/ปปปป)</th>
+
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let data of reqCheck">
+                  <td>{{ data.Branch_Name }} </td>
+                  <td>{{ data.ReqQuantity }}</td>
+                  <td>{{ data.ReqDate |date: 'dd/MM/yyyy' }} </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+            <!-- <table  class="ui selectable celled table w3-card">
+                    <thead>
+                      <td>สาขา</td>
+                      <td>จำนวน</td>
+                      <td>วันที่ขอเบิก</td>
+                    </thead> 
+                    <tbody>
+                    <tr *ngFor="let data of reqCheck">
+                      <td> {{ data.Branch_Name }} </td>
+                      <td> {{ data.ReqQuantity }} </td>
+                      <td> {{ data.ReqDate }} </td> 
+                    </tr> 
+                  </tbody>
+                  </table>  -->
+
+          </div>
+          <div class="modal-footer">
+            <button mat-raised-button color="warn"class="btn btn-default" data-dismiss="modal">ปิด</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <div class="ui button green" #warning (click)="myModal.show()" [hidden]= "true" >Click me</div>
+<sm-dimmer  class="basic" #myModal>
+    <modal-content>
+      <mat-card class="warn">
+        สินค้าในคลังไม่เพียงพอ หรือ จ่ายสินค้าให้เกินจำนวนที่ขอเบิก
+        <button class="ui button primary"  [hidden]= "false">Close modal</button>
+      </mat-card>
+    </modal-content>
+</sm-dimmer> -->
+
+<!-- <div class="ui button primary" #warning (click)="myModalNormal.show()" [hidden]= "true">Click me</div>
+<sm-dimmer title="Hello from Modal" class="" icon="home" #myModalNormal>
+    <modal-content>
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    </modal-content>
+    <modal-actions>
+        <div class="ui buttons">
+            <div class="ui button primary" (click)="myModalNormal.hide()">Close modal</div>
+        </div>
+    </modal-actions>
+</sm-dimmer> -->
+
+<button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#myModalWarn">Open Modal</button>
+
+<div id="myModalWarn" class="modal fade">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+
+      </div>
+      <div class="modal-body">
+        <p>สินค้าในคลังไม่เพียงพอต่อการขอเบิก หรือสั่งจ่ายมากกว่าคำเบิกขอ</p>
+      </div>
+      <div class="modal-footer">
+          <button mat-raised-button color="warn"class="btn btn-default" data-dismiss="modal">ปิด</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<button id="openModalButton2" [hidden]="true" data-toggle="modal" data-target="#myModalWarnsuc">Open Modal</button>
+
+<div id="myModalWarnsuc" class="modal fade">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+
+      </div>
+      <div class="modal-body">
+        <p>สั่งจ่ายตามคำขอเรียบร้อย</p>
+      </div>
+      <div class="modal-footer">
+          <button mat-raised-button color="warn"class="btn btn-default" data-dismiss="modal">ปิด</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<button id="openModalwarn" [hidden]="true" data-toggle="modal" data-target="#myModalWarn1">Open Modal</button>
+
+<div id="myModalWarn1" class="modal fade">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+
+      </div>
+      <div class="modal-body">
+        <p>กรุณากรอกจำนวนสินค้าที่ต้องการสั่งจ่าย</p>
+      </div>
+      <div class="modal-footer">
+          <button mat-raised-button color="warn"class="btn btn-default" data-dismiss="modal">ปิด</button>
+        </div>
+    </div>
+  </div>
+</div>
+</body>

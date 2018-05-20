@@ -1,0 +1,160 @@
+<app-header-branch></app-header-branch>
+
+<body>
+  <mat-card>
+    <h1>การจองคอร์ส</h1>
+    <!-- <div class="example-header"> -->
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="ค้นหา">
+    </mat-form-field>
+    <!-- </div> -->
+    <i class="material-icons col-3">search</i>
+    <div class="example-container mat-elevation-z8">
+      <mat-table [dataSource]="dataSource1" matSort>
+       
+
+        <ng-container matColumnDef="courseName"> 
+          <mat-header-cell  *matHeaderCellDef mat-sort-header > ชื่อคอร์ส </mat-header-cell>
+          <mat-cell  *matCellDef="let reservation"  > {{reservation.Course_Name}} </mat-cell>
+        </ng-container>
+
+        <!-- Progress Column -->
+        <ng-container matColumnDef="date">
+          <mat-header-cell  *matHeaderCellDef mat-sort-header > วันที่จองคอร์ส </mat-header-cell>
+          <mat-cell  *matCellDef="let reservation"> {{reservation.ReservationCourse_Date | date: 'dd/MM/yyyy' }} </mat-cell>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="bttDel">
+          <mat-header-cell style="flex: 0 0 15%;" *matHeaderCellDef mat-sort-header>  </mat-header-cell>
+          <mat-cell style="flex: 0 0 15%;" *matCellDef="let product">  
+            <button mat-raised-button color="primary" (click)="delReservation(reservation.)">  ลบ </button>
+           
+            </mat-cell>
+        </ng-container>  -->
+
+        <!-- Name Column -->
+        <!-- <ng-container matColumnDef="status">
+          <mat-header-cell  *matHeaderCellDef mat-sort-header > สถานะ </mat-header-cell>
+          <mat-cell  *matCellDef="let reservation"> {{reservation.ReservationCourse_Status}} </mat-cell>
+        </ng-container> -->
+        <!-- Color Column -->
+        <!-- <ng-container matColumnDef="amount">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> จำนวน </mat-header-cell>
+          <mat-cell *matCellDef="let reservation" > {{reservation}} </mat-cell>
+        </ng-container> -->
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns; let id = index">
+        </mat-row>
+      </mat-table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+    <br> 
+    <button mat-raised-button color="primary" (click)="checkProductReservation()">  ตรวจสอบความเพียงพอของสินค้า </button>
+   
+  </mat-card>
+
+  <button id="openModalButton1" [hidden]="true" data-toggle="modal" data-target="#myModalWarn1">Open Modal</button>
+  <button id="openModalButton2" [hidden]="true" data-toggle="modal" data-target="#myModalWarn2">Open Modal</button>
+  <button id="openModalButton3" [hidden]="true" data-toggle="modal" data-target="#myModalWarn3">Open Modal</button>
+
+<div id="myModalWarn1" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>จากรายการการจองคอร์ส สินค้าในคลังอาจไม่เพียงพอต่อการให้บริการ  <br>
+          สินค้าที่ไม่เพียงพอต่อการดำเนินการโดยประมาณ </p>
+        <!-- <p  *ngFor="getResult data of result"> </p> -->
+            <table class="ui celled table">
+              <thead>
+                <tr>
+                  <th>รหัสสินค้า</th>
+                  <th>จำนวนสินค้าที่มีในคลัง</th>
+                  <th>จำนวนสินค้าที่จำเป็นต้องใช้</th>
+
+              </thead>
+              <tbody>
+
+                  <tr *ngFor="let getResult of i_tood_i_sus;let i = index">
+                      <td>{{ getResult[0] }} </td>
+                      <td>{{ getResult[1] }}</td>
+                      <td>{{ getResult[2  ] }}</td>
+                    </tr>
+
+              </tbody>
+
+            </table>
+
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="myModalWarn2" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>จากรายการการจองคอร์ส สินค้าในคลังอาจไม่เพียงพอต่อการให้บริการ  <br>
+            สินค้าที่ไม่เพียงพอต่อการดำเนินการโดยประมาณ </p>
+          <!-- <p  *ngFor="getResult data of result"> </p> -->
+              <table class="ui celled table">
+                <thead>
+                  <tr>
+                    <th>รหัสสินค้า</th>
+                    <th>จำนวนสินค้าที่มีในคลัง</th>
+                    <th>จำนวนสินค้าที่จำเป็นต้องใช้</th>
+  
+                </thead>
+                <tbody>
+  
+                  <tr *ngFor="let getResult of i_tood_i_sus">
+                    <td>{{ getResult }} </td>
+                    <td>Isus</td>
+                    <td>Itood </td>
+                  </tr>
+  
+                </tbody>
+  
+              </table>
+              <br>
+              <p>ไม่มีสินค้าในคลังเหลืออยู่</p>
+              <table class="ui celled table">
+                  <thead>
+                    <tr>
+                      <th>รหัสสินค้า</th>
+                      
+    
+                  </thead>
+                  <tbody>
+    
+                    <tr *ngFor="let getResult of i_tood_i_sus">
+                      <td>{{ getResult }} </td>
+                      
+
+                    </tr>
+    
+                  </tbody>
+    
+                </table>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="myModalWarn3" class="modal fade">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-body">
+            <br>
+            <p>จากรายการการจองคอร์ส สินค้าในคลังเพียงพอต่อการให้บริการโดยประมาณ</p>
+          </div>
+          <div class="modal-footer">
+              <button mat-raised-button color="warn" class="btn btn-default" data-dismiss="modal">ปิด</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>

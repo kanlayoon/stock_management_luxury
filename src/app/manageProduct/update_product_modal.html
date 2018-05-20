@@ -1,0 +1,39 @@
+
+ <h1 mat-dialog-title color>แก้ไขข้อมูลสินค้า</h1>
+<!-- <div mat-dialog-content style="height : 100%" > -->
+  <!-- <p>What's your favorite animal?</p> -->
+ 
+  <mat-form-field>
+        <input matInput myNumberOnly name="min" placeholder="รหัสสินค้า"  [(ngModel)]="data.code">
+        
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="ชื่อสินค้า"  [(ngModel)]="data.name">
+      </mat-form-field>
+      <br>
+      <p>ประเภทสินค้าเดิม : {{data.types}} </p>
+      <mat-form-field>
+          <mat-select placeholder="ประเภทของสินค้า" [(ngModel)]="data.typeup" > 
+            <mat-option   *ngFor="let typeup of productTypes" [value]="typeup.ProductType_Id">
+              {{ typeup.ProductType_Name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+      
+          
+          <mat-form-field>
+              <input matInput placeholder="คำอธิบาย"  [(ngModel)]="data.des">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <input matInput placeholder="วิธีใช้"  [(ngModel)]="data.ins">
+              </mat-form-field>
+
+<!-- </div> -->
+<div mat-dialog-actions> 
+    <button mat-raised-button color="warn" [mat-dialog-close]="data" cdkFocusInitial  >ตกลง</button>
+    <button  mat-raised-button color="success" (click)="onNoClick()">ยกเลิก</button>
+   
+  </div>

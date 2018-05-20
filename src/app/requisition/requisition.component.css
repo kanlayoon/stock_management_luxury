@@ -1,0 +1,56 @@
+.example-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+  }
+  
+  
+  
+  .mat-table {
+    overflow: auto;
+    max-height: 500px;
+  }
+  mat-card {
+    margin: 3%;
+    
+}
+h1 { color: #111;
+  font-family: 'Helvetica Neue', sans-serif; 
+  font-size: 30px; 
+  font-weight: bold; 
+  letter-spacing: -1px; 
+  line-height: 2; 
+  text-align: center;
+ background-color: #c9c9ff;
+}
+body {
+  font-family: Arial, sans-serif;
+	background: #ddd;
+}
+
+h1 {
+	text-align: center;
+	font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
+	color: #333;
+	text-shadow: 0 1px 0 #fff;
+	margin: 50px 0;
+}
+
+#wrapper {
+	width: 100px;
+	margin: 0 auto;
+	background: #fff;
+	padding: 20px;
+	border: 10px solid #aaa;
+	border-radius: 15px;
+	background-clip: padding-box;
+	text-align: center;
+}
+.warn{
+  width: 30%;
+  height: 20%;
+  align-content: center;
+  text-align: center;
+}
+.modal-header{
+  background-color: #F44336;
+}

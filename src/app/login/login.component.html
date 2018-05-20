@@ -1,0 +1,63 @@
+<body bgcolor="#FFDF8F" >
+<br>
+<mat-card class=" center" >
+    <img src="assets/img/Logo-Luxury-04-1024x1024.png" height="260" width="260"><br>
+ <h1> LOGIN</h1> <br>
+
+
+    <mat-form-field class="example-full-width">     
+      <input matInput  placeholder="Username" [(ngModel)]="user" >
+     
+    </mat-form-field>
+
+<br>
+
+    <mat-form-field class="example-full-width">
+        <input type="password" matInput placeholder="password" [type]="hide ? 'password' : 'text'"  [(ngModel)]="pass" >
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </mat-form-field>
+  
+<br>
+<a (click)="openDialog()"><p>ลืมรหัสผ่าน</p></a>
+<br>
+
+   
+
+  <button mat-raised-button color="primary" (click)="login()"> Login</button> 
+  <button mat-raised-button color="warn" (click)="pass=''"  (click)="user=''"> Cancel </button>
+</mat-card>
+
+<button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#myModalWarn">Open Modal</button>
+
+<div id="myModalWarn" class="modal fade">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+        <br>
+          <p> ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง </p>
+        </div>
+        <div class="modal-footer">
+          <button mat-raised-button color="warn"class="btn btn-default" data-dismiss="modal">ปิด</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <button id="openModalButtonemail" [hidden]="true" data-toggle="modal" data-target="#myModalWarnemail">Open Modal</button>
+
+<div id="myModalWarnemail" class="modal fade">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+        <br>
+          <p> กรุณากรอก e-mail </p>
+        </div>
+        <div class="modal-footer">
+          <button mat-raised-button color="warn"class="btn btn-default" data-dismiss="modal">ปิด</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</body>

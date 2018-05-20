@@ -1,0 +1,100 @@
+<app-header></app-header>
+<mat-card>
+  <mat-tab-group>
+    <mat-tab label="จัดการพนักงานสาขาใหญ่">
+        <mat-card>
+            <div class="example-container mat-elevation-z8">
+                <mat-table [dataSource]="dataSource1">
+                    <ng-container matColumnDef="branch">
+                        <mat-header-cell *matHeaderCellDef> สาขา </mat-header-cell>
+                        <mat-cell *matCellDef="let manager"> {{manager.Branch_Name}} </mat-cell>
+                    </ng-container>
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef> ชื่อ </mat-header-cell>
+                        <mat-cell *matCellDef="let manager"> {{manager.Manager_FirstName}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="last">
+                        <mat-header-cell *matHeaderCellDef> นามสกุล </mat-header-cell>
+                        <mat-cell *matCellDef="let manager"> {{manager.Manager_LastName}} </mat-cell>
+                    </ng-container>
+
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="btt">
+                        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                        <mat-cell *matCellDef="let manager">
+                            <button mat-raised-button color="primary" (click)="openDialog(manager)">แก้ไขข้อมูลผู้ใช้งาน</button>
+                        </mat-cell>
+                    </ng-container> 
+
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                </mat-table>
+            </div>
+        </mat-card>
+
+    </mat-tab>
+    <mat-tab label="จัดการพนักงานสาขาย่อย">
+        <mat-card>
+            <div class="example-container mat-elevation-z8">
+                <mat-table [dataSource]="dataSource2">
+                    <ng-container matColumnDef="branch">
+                        <mat-header-cell *matHeaderCellDef> สาขา </mat-header-cell>
+                        <mat-cell *matCellDef="let manager"> {{manager.Branch_Name}} </mat-cell>
+                    </ng-container>
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef> ชื่อ </mat-header-cell>
+                        <mat-cell *matCellDef="let manager"> {{manager.Manager_FirstName}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="last">
+                        <mat-header-cell *matHeaderCellDef> นามสกุล </mat-header-cell>
+                        <mat-cell *matCellDef="let manager"> {{manager.Manager_LastName}} </mat-cell>
+                    </ng-container>
+
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="btt">
+                        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                        <mat-cell *matCellDef="let manager">
+                           <button mat-raised-button color="primary" (click)="openDialog(manager)">แก้ไขข้อมูลผู้ใช้งาน</button>
+                        </mat-cell>
+                    </ng-container> 
+
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                </mat-table>
+            </div>
+        </mat-card>
+
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>
+
+
+<button id="succ" [hidden]="true" data-toggle="modal" data-target="#myModalWarn2">Open Modal</button>
+
+<div id="myModalWarn2" class="modal fade">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+      <div class="modal-header">
+                        
+                    </div>
+        <div class="modal-body">
+          <p>บันทึกการเปลี่ยนแปลงเรียบร้อย</p><br>
+          
+        </div>
+        <div class="modal-footer">
+                       
+                        <button mat-raised-button color="warn" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                    </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,57 @@
+
+<head><link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" ></head>
+
+<mat-toolbar class="mat-aaa" >
+    <a [routerLink]="'/dashboard-head-office'"><img src="assets/img/Logo-Luxury-04-1024x1024.png" height="80" width="100"></a>
+  <a [routerLink]="'/dashboard-branch'"><button mat-button>LUXURY</button></a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a [routerLink]="'/dashboard-branch'"><button mat-button>หน้าแรก</button></a>
+  <a [routerLink]="'/product-branch'"><button mat-button>สินค้าในคลัง</button></a>
+  <a [routerLink]="'/request'"><button mat-button >ขอเบิกสินค้า</button></a>
+  <a [routerLink]="'/using-product-branch'"><button mat-button>ข้อมูลการใช้สินค้า</button></a>
+  <a [routerLink]="'/reservation'"><button mat-button >การจองคอร์ส</button></a>
+  <a [routerLink]="'/notification-branch'"><button mat-button >ตั้งค่าการแจ้งเตือน</button></a>
+  <a [routerLink]="'/report-branch'"><button mat-button >ออกรายงาน</button></a>
+  
+  <span class="example-spacer"></span> 
+
+
+
+
+
+  <!-- <i class="material-icons" aria-hidden="true" >notifications </i>  -->
+  <i class="material-icons mat-icon">notifications</i>
+  <div *ngIf = "notifications">
+    <mat-chip-list>
+        <mat-chip  color="warn" selected="true"  (click)="openDialog()"  aria-hidden="true"> {{Number_count}} </mat-chip>
+  </mat-chip-list>
+</div>
+
+&nbsp;&nbsp;&nbsp;
+  <mat-icon [matMenuTriggerFor]="menu" role="img" aria-hidden="true">account_circle</mat-icon>   &nbsp;
+   <p [matMenuTriggerFor]="menu">{{username}}</p>
+  <mat-menu #menu="matMenu">
+   
+    <button mat-menu-item (click)="clearLocal()">Logout</button>
+  </mat-menu>
+ 
+  
+  <!-- <mat-card-content class="header-card">
+  <i class="material-icons" [matMenuTriggerFor]="menu"role="img" aria-hidden="true" >notifications</i>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Profile</button>
+      <button mat-menu-item>Logout</button>
+    </mat-menu>
+  </mat-card-content>
+ 
+  <mat-card-content class="header-card">
+  <mat-icon [matMenuTriggerFor]="menu" role="img" aria-hidden="true">person</mat-icon>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>Profile</button>
+    <button mat-menu-item>Logout</button>
+  </mat-menu>
+  </mat-card-content> -->
+
+
+</mat-toolbar>
+
